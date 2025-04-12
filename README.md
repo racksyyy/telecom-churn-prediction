@@ -1,70 +1,71 @@
-# Telecom Churn Prediction
+# Telco Customer Churn Prediction
 
-This project aims to predict customer churn using various classification models, comparing their performance, and visualizing the results through a dashboard.
+This project focuses on predicting customer churn using machine learning models. The dataset is based on a real-world telco company’s customer records. The goal is to help businesses proactively retain customers by identifying those at risk of leaving.
 
 ## Problem Statement
 
-Customer churn is a major challenge in the telecom (or banking) industry. This project uses machine learning to predict whether a customer will subscribe to a term deposit offer, which is a proxy for customer engagement or retention.
+Customer churn is costly for any subscription-based business. Predicting churn allows companies to intervene before a customer leaves. This project explores multiple classification models to predict churn and compares their performance. It also addresses class imbalance and selects the most impactful features.
 
 ## Dataset
 
-- **Source**: `bank.csv`
-- The dataset includes attributes such as age, job type, marital status, education, contact method, previous outcome, and more.
-- Target variable: `y` (binary: yes/no)
+- **File**: `WA_Fn-UseC_-Telco-Customer-Churn.csv`
+- **Target Variable**: `Churn` (binary: Yes/No)
+- Features include:
+  - Demographics (e.g., gender, senior citizen)
+  - Services signed up (e.g., internet service, phone lines)
+  - Account information (e.g., contract type, tenure, charges)
 
 ## Technologies Used
 
-- Google Colab (Python)
-- pandas, seaborn, matplotlib
-- scikit-learn (for model training and evaluation)
-- Streamlit (for dashboard)
+- Python (Colab)
+- pandas, NumPy, seaborn, matplotlib
+- scikit-learn, XGBoost
+- imbalanced-learn (SMOTE)
+- joblib (model serialization)
 
 ## Workflow
 
-1. **Data Cleaning**
-   - Handled "unknown" values
-   - Label encoding for binary features
-   - One-hot encoding for categorical features
+### 1. Data Preprocessing
+- Removed missing values in `TotalCharges`
+- Encoded categorical features using `LabelEncoder`
+- Scaled features using `StandardScaler`
 
-2. **Model Training**
-   - Trained five classification models:
-     - Logistic Regression
-     - Decision Tree
-     - Random Forest
-     - Support Vector Machine (SVM)
-     - Gradient Boosting
+### 2. Feature Selection
+- Used Random Forest to extract feature importances
+- Selected top 10 important features for model training
 
-3. **Evaluation Metrics**
-   - Accuracy
-   - Precision
-   - Recall
-   - F1-score
-   - Classification Report
+### 3. Model Training
+Trained and cross-validated five ML models:
+- Logistic Regression
+- Random Forest
+- XGBoost
+- Support Vector Machine
+- Naive Bayes
 
-4. **Hyperparameter Tuning**
-   - Grid Search on Random Forest model
+### 4. Hyperparameter Tuning
+- Used GridSearchCV to tune:
+  - Logistic Regression (`C`, `solver`)
+  - Random Forest (`n_estimators`, `max_depth`, etc.)
+  - XGBoost (`learning_rate`, `max_depth`, `n_estimators`, etc.)
 
-5. **Dashboard**
-   - Built using Streamlit
-   - Horizontal bar chart showing F1-scores
-   - Highlights best performing model
+### 5. Class Imbalance Handling
+- Applied **SMOTE** (Synthetic Minority Over-sampling Technique) for balanced training
+
+### 6. Ensemble Modeling
+- Built a **Voting Classifier** using Logistic Regression, Random Forest, and XGBoost for better performance
+
+### 7. Model Export
+- Saved the final tuned model and encoders using `joblib`
 
 ## Results
 
-| Model              | F1 Score |
-|--------------------|----------|
-| Logistic Regression| 0.87     |
-| Decision Tree      | 0.85     |
-| Random Forest      | 0.87     |
-| Gradient Boosting  | 0.88     |
-| SVM                | 0.83     |
-
-- **Best Model**: Gradient Boosting (F1-score: 0.92 after tuning)
+- **XGBoost** and **VotingClassifier** achieved the best F1-scores on test data
+- Applied SMOTE significantly improved minority class recall
+- Classification report and confusion matrices show improved balance in predictions
 
 ## How to Run
 
-1. Clone this repository or open the notebook in Google Colab.
-2. Run `hackathon.py` to train and evaluate models.
-3. To launch the dashboard:
+1. Clone the repository
+2. Install required packages:
    ```bash
-   streamlit run app.py
+   pip install -r requirements.txt
