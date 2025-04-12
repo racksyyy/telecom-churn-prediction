@@ -1,4 +1,3 @@
-# telecom-churn-prediction
 # Telecom Churn Prediction
 
 This project aims to predict customer churn using various classification models, comparing their performance, and visualizing the results through a dashboard.
