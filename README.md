@@ -1,6 +1,6 @@
 # Telco Customer Churn Prediction
 
-This project focuses on predicting customer churn using machine learning models. The dataset is based on a real-world telco company’s customer records. The goal is to help businesses proactively retain customers by identifying those at risk of leaving.
+This project focuses on predicting customer churn using machine learning models. The dataset is based on a real-world telco company’s customer records. The goal is to help businesses proactively retain customers by identifying those at risk of leaving
 
 ## Problem Statement
 
